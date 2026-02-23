@@ -7,15 +7,16 @@
     <meta name="description" content="Innovative AI tools solving real problems on Salt Spring Island.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
         html, body { height: 100%; }
 
         body {
-            font-family: 'Inter', -apple-system, sans-serif;
-            background: #1a2536;
+            font-family: 'DM Sans', -apple-system, sans-serif;
+            background: #0f1a2a;
             color: #f0ece6;
+            overflow-x: hidden;
         }
 
         /* ── Full-bleed hero ── */
@@ -36,12 +37,12 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: center 35%;
+            object-position: center 40%;
             z-index: 0;
-            filter: brightness(1.15) saturate(1.2) contrast(1.05);
+            filter: brightness(1.1) saturate(1.25) contrast(1.05);
         }
 
-        /* Darkened band at the top for text readability */
+        /* Top gradient for text readability */
         .hero::before {
             content: '';
             position: absolute;
@@ -49,137 +50,203 @@
             z-index: 1;
             background:
                 linear-gradient(to bottom,
-                    rgba(15, 25, 40, 0.7) 0%,
-                    rgba(15, 25, 40, 0.5) 20%,
-                    rgba(15, 25, 40, 0.15) 40%,
-                    rgba(0, 0, 0, 0) 55%,
-                    rgba(26, 37, 54, 0.4) 85%,
-                    rgba(26, 37, 54, 0.95) 100%
+                    rgba(12, 20, 35, 0.75) 0%,
+                    rgba(12, 20, 35, 0.45) 22%,
+                    rgba(12, 20, 35, 0.1) 42%,
+                    transparent 55%,
+                    rgba(15, 26, 42, 0.3) 80%,
+                    rgba(15, 26, 42, 0.92) 100%
                 );
             pointer-events: none;
         }
 
-        /* ── Content — pinned to top area ── */
+        /* ── Content ── */
         .content {
             position: relative;
             z-index: 2;
             text-align: center;
-            padding: 4.5rem 2rem 2rem;
-            max-width: 620px;
+            padding: 5rem 2rem 2rem;
+            max-width: 680px;
+            width: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
+        }
+
+        /* ── Animated line accent ── */
+        .accent-line {
+            width: 48px;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(255,190,130,0.6), rgba(255,220,170,0.2));
+            border-radius: 2px;
+            margin-bottom: 1.8rem;
+            animation: lineIn 1.2s ease forwards;
+        }
+
+        @keyframes lineIn {
+            from { width: 0; opacity: 0; }
+            to { width: 48px; opacity: 1; }
         }
 
         .heading {
-            font-family: 'Cormorant Garamond', Georgia, serif;
-            font-weight: 300;
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-weight: 400;
             font-style: italic;
-            font-size: 2.6rem;
-            letter-spacing: 0.02em;
+            font-size: 2.8rem;
             color: #fff;
-            margin-bottom: 0.6rem;
-            text-shadow: 0 2px 16px rgba(0, 0, 0, 0.5), 0 1px 3px rgba(0, 0, 0, 0.3);
-            line-height: 1.2;
+            margin-bottom: 0.7rem;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
+            line-height: 1.15;
+            animation: fadeUp 0.8s ease forwards;
+            opacity: 0;
+            animation-delay: 0.2s;
         }
 
         .tagline {
-            font-family: 'Inter', sans-serif;
+            font-family: 'DM Sans', sans-serif;
             font-weight: 300;
-            font-size: 0.78rem;
-            color: rgba(255, 255, 255, 0.7);
-            letter-spacing: 0.14em;
+            font-size: 0.8rem;
+            color: rgba(255, 230, 200, 0.65);
+            letter-spacing: 0.18em;
             text-transform: uppercase;
-            margin-bottom: 3rem;
-            text-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
+            margin-bottom: 3.2rem;
+            text-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
+            animation: fadeUp 0.8s ease forwards;
+            opacity: 0;
+            animation-delay: 0.4s;
         }
 
-        /* ── Project links ── */
-        .links {
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ── Project cards ── */
+        .cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.9rem;
+            width: 100%;
+            max-width: 480px;
+            animation: fadeUp 0.8s ease forwards;
+            opacity: 0;
+            animation-delay: 0.6s;
+        }
+
+        .card {
+            position: relative;
             display: flex;
             flex-direction: column;
-            gap: 1rem;
-            width: 100%;
-            max-width: 340px;
+            align-items: flex-start;
+            padding: 1.5rem 1.4rem;
+            text-decoration: none;
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+
+            background: rgba(10, 18, 32, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(16px) saturate(1.2);
+            -webkit-backdrop-filter: blur(16px) saturate(1.2);
         }
 
-        .link {
+        /* Subtle top-edge highlight */
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 10%;
+            right: 10%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 220, 170, 0.25), transparent);
+            pointer-events: none;
+        }
+
+        .card:hover {
+            border-color: rgba(255, 200, 140, 0.25);
+            transform: translateY(-4px);
+            box-shadow:
+                0 16px 40px rgba(0, 0, 0, 0.25),
+                0 0 0 1px rgba(255, 200, 140, 0.08);
+            background: rgba(10, 18, 32, 0.65);
+        }
+
+        .card-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            padding: 1.1rem 1.6rem;
-            text-decoration: none;
-            border-radius: 6px;
+            justify-content: center;
+            margin-bottom: 1rem;
+            background: rgba(255, 200, 140, 0.08);
+            border: 1px solid rgba(255, 200, 140, 0.12);
+            color: rgba(255, 210, 160, 0.7);
             transition: all 0.35s ease;
-
-            background: rgba(10, 20, 35, 0.45);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
         }
 
-        .link:hover {
-            background: rgba(10, 20, 35, 0.6);
-            border-color: rgba(255, 220, 180, 0.35);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+        .card:hover .card-icon {
+            background: rgba(255, 200, 140, 0.12);
+            color: rgba(255, 210, 160, 0.95);
         }
 
-        .link-info {
-            text-align: left;
-        }
-
-        .link-name {
-            font-family: 'Cormorant Garamond', Georgia, serif;
-            font-size: 1.2rem;
+        .card-name {
+            font-family: 'DM Serif Display', Georgia, serif;
+            font-size: 1.15rem;
             font-weight: 400;
             color: #fff;
-            letter-spacing: 0.02em;
             display: block;
-            text-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
+            margin-bottom: 0.35rem;
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
         }
 
-        .link-desc {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.68rem;
+        .card-desc {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.72rem;
             font-weight: 300;
-            color: rgba(255, 255, 255, 0.5);
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            margin-top: 0.25rem;
+            color: rgba(255, 255, 255, 0.45);
+            line-height: 1.5;
             display: block;
         }
 
-        .link-arrow {
-            color: rgba(255, 220, 180, 0.5);
-            font-size: 1.1rem;
+        .card-arrow {
+            margin-top: auto;
+            padding-top: 1rem;
+            color: rgba(255, 210, 160, 0.3);
+            font-size: 0.9rem;
             transition: all 0.35s ease;
-            margin-left: 1rem;
+            align-self: flex-end;
         }
 
-        .link:hover .link-arrow {
-            color: rgba(255, 220, 180, 0.9);
-            transform: translateX(3px);
+        .card:hover .card-arrow {
+            color: rgba(255, 210, 160, 0.8);
+            transform: translateX(4px);
         }
 
         /* ── More to come ── */
         .more {
-            margin-top: 1.6rem;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.7rem;
-            font-weight: 300;
-            letter-spacing: 0.18em;
+            margin-top: 2rem;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 400;
+            letter-spacing: 0.16em;
             text-transform: uppercase;
-            color: rgba(0, 0, 0, 0.8);
-            text-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
+            color: rgba(255, 230, 200, 0.4);
+            text-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
+            animation: fadeUp 0.8s ease forwards;
+            opacity: 0;
+            animation-delay: 0.8s;
         }
 
         /* ── Responsive ── */
-        @media (max-width: 480px) {
-            .content { padding: 3rem 1.5rem 2rem; }
-            .heading { font-size: 2rem; }
+        @media (max-width: 520px) {
+            .content { padding: 3.5rem 1.5rem 2rem; }
+            .heading { font-size: 2.1rem; }
             .tagline { margin-bottom: 2.2rem; }
-            .links { max-width: 100%; }
+            .cards {
+                grid-template-columns: 1fr;
+                max-width: 320px;
+            }
         }
     </style>
 </head>
@@ -188,23 +255,34 @@
         <img src="img/IMG_0056.png" alt="Salt Spring Island at golden hour — calm waters and forested hills under a warm sky" class="hero-img">
 
         <div class="content">
+            <div class="accent-line"></div>
             <h1 class="heading">Intelligent tools for island life</h1>
             <p class="tagline">Community-focused &middot; AI-powered &middot; Salt Spring Island</p>
 
-            <nav class="links">
-                <a href="https://bylaws.saltspring.info" class="link">
-                    <div class="link-info">
-                        <span class="link-name">Bylaw Compliance Checker</span>
-                        <span class="link-desc">Search &amp; explore island bylaws</span>
+            <nav class="cards">
+                <a href="https://bylaws.saltspring.info" class="card">
+                    <div class="card-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <polyline points="14 2 14 8 20 8"/>
+                            <line x1="16" y1="13" x2="8" y2="13"/>
+                            <line x1="16" y1="17" x2="8" y2="17"/>
+                        </svg>
                     </div>
-                    <span class="link-arrow">→</span>
+                    <span class="card-name">Bylaw Compliance Checker</span>
+                    <span class="card-desc">Search &amp; explore island bylaws</span>
+                    <span class="card-arrow">&#8594;</span>
                 </a>
-                <a href="https://ocp.saltspring.info" class="link">
-                    <div class="link-info">
-                        <span class="link-name">OCP Analysis</span>
-                        <span class="link-desc">Comprehesive Analysis of the OCP</span>
+                <a href="https://ocp.saltspring.info" class="card">
+                    <div class="card-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
                     </div>
-                    <span class="link-arrow">→</span>
+                    <span class="card-name">OCP Analysis</span>
+                    <span class="card-desc">Comprehensive analysis of the OCP</span>
+                    <span class="card-arrow">&#8594;</span>
                 </a>
             </nav>
 
