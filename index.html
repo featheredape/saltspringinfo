@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>saltspring.info — Intelligent Tools for Island Life</title>
+    <meta name="description" content="Innovative AI tools solving real problems on Salt Spring Island.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: #1a2536;
+            color: #f0ece6;
+        }
+
+        /* ── Full-bleed hero ── */
+        .hero {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            overflow: hidden;
+        }
+
+        .hero-img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 35%;
+            z-index: 0;
+            filter: brightness(1.15) saturate(1.2) contrast(1.05);
+        }
+
+        /* Darkened band at the top for text readability */
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            background:
+                linear-gradient(to bottom,
+                    rgba(15, 25, 40, 0.7) 0%,
+                    rgba(15, 25, 40, 0.5) 20%,
+                    rgba(15, 25, 40, 0.15) 40%,
+                    rgba(0, 0, 0, 0) 55%,
+                    rgba(26, 37, 54, 0.4) 85%,
+                    rgba(26, 37, 54, 0.95) 100%
+                );
+            pointer-events: none;
+        }
+
+        /* ── Content — pinned to top area ── */
+        .content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 4.5rem 2rem 2rem;
+            max-width: 620px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .heading {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-weight: 300;
+            font-style: italic;
+            font-size: 2.6rem;
+            letter-spacing: 0.02em;
+            color: #fff;
+            margin-bottom: 0.6rem;
+            text-shadow: 0 2px 16px rgba(0, 0, 0, 0.5), 0 1px 3px rgba(0, 0, 0, 0.3);
+            line-height: 1.2;
+        }
+
+        .tagline {
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            font-size: 0.78rem;
+            color: rgba(255, 255, 255, 0.7);
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            margin-bottom: 3rem;
+            text-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        /* ── Project links ── */
+        .links {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            width: 100%;
+            max-width: 340px;
+        }
+
+        .link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.1rem 1.6rem;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.35s ease;
+
+            background: rgba(10, 20, 35, 0.45);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+        }
+
+        .link:hover {
+            background: rgba(10, 20, 35, 0.6);
+            border-color: rgba(255, 220, 180, 0.35);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .link-info {
+            text-align: left;
+        }
+
+        .link-name {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: #fff;
+            letter-spacing: 0.02em;
+            display: block;
+            text-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .link-desc {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.68rem;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            margin-top: 0.25rem;
+            display: block;
+        }
+
+        .link-arrow {
+            color: rgba(255, 220, 180, 0.5);
+            font-size: 1.1rem;
+            transition: all 0.35s ease;
+            margin-left: 1rem;
+        }
+
+        .link:hover .link-arrow {
+            color: rgba(255, 220, 180, 0.9);
+            transform: translateX(3px);
+        }
+
+        /* ── More to come ── */
+        .more {
+            margin-top: 1.6rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 300;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: rgba(0, 0, 0, 0.8);
+            text-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 480px) {
+            .content { padding: 3rem 1.5rem 2rem; }
+            .heading { font-size: 2rem; }
+            .tagline { margin-bottom: 2.2rem; }
+            .links { max-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <img src="img/IMG_0056.png" alt="Salt Spring Island at golden hour — calm waters and forested hills under a warm sky" class="hero-img">
+
+        <div class="content">
+            <h1 class="heading">Intelligent tools for island life</h1>
+            <p class="tagline">Community-focused &middot; AI-powered &middot; Salt Spring Island</p>
+
+            <nav class="links">
+                <a href="https://bylaws.saltspring.info" class="link">
+                    <div class="link-info">
+                        <span class="link-name">Bylaw Compliance Checker</span>
+                        <span class="link-desc">Search &amp; explore island bylaws</span>
+                    </div>
+                    <span class="link-arrow">→</span>
+                </a>
+                <a href="https://ocp.saltspring.info" class="link">
+                    <div class="link-info">
+                        <span class="link-name">OCP Analysis</span>
+                        <span class="link-desc">Comprehesive Analysis of the OCP</span>
+                    </div>
+                    <span class="link-arrow">→</span>
+                </a>
+            </nav>
+
+            <p class="more">More to come</p>
+        </div>
+    </section>
+</body>
+</html>
