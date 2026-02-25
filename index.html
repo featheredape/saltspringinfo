@@ -106,7 +106,7 @@
             font-family: 'DM Sans', sans-serif;
             font-weight: 300;
             font-size: 0.8rem;
-            color: rgba(255, 230, 200, 0.65);
+            color: rgba(255, 230, 200, 0.78);
             letter-spacing: 0.18em;
             text-transform: uppercase;
             margin-bottom: 3.2rem;
@@ -125,9 +125,9 @@
         .cards {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 0.9rem;
+            gap: 1.2rem;
             width: 100%;
-            max-width: 480px;
+            max-width: 500px;
             animation: fadeUp 0.8s ease forwards;
             opacity: 0;
             animation-delay: 0.6s;
@@ -138,14 +138,14 @@
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            padding: 1.5rem 1.4rem;
+            padding: 1.6rem 1.5rem;
             text-decoration: none;
             border-radius: 16px;
             overflow: hidden;
             transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 
-            background: rgba(10, 18, 32, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(10, 18, 32, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.12);
             backdrop-filter: blur(16px) saturate(1.2);
             -webkit-backdrop-filter: blur(16px) saturate(1.2);
         }
@@ -168,13 +168,21 @@
             box-shadow:
                 0 16px 40px rgba(0, 0, 0, 0.25),
                 0 0 0 1px rgba(255, 200, 140, 0.08);
-            background: rgba(10, 18, 32, 0.65);
+            background: rgba(10, 18, 32, 0.7);
+        }
+
+        .card:focus-visible {
+            outline: none;
+            border-color: rgba(255, 200, 140, 0.5);
+            box-shadow:
+                0 0 0 3px rgba(255, 200, 140, 0.2),
+                0 8px 24px rgba(0, 0, 0, 0.2);
         }
 
         .card-icon {
-            width: 36px;
-            height: 36px;
-            border-radius: 10px;
+            width: 40px;
+            height: 40px;
+            border-radius: 11px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -204,7 +212,7 @@
             font-family: 'DM Sans', sans-serif;
             font-size: 0.72rem;
             font-weight: 300;
-            color: rgba(255, 255, 255, 0.45);
+            color: rgba(255, 255, 255, 0.65);
             line-height: 1.5;
             display: block;
         }
@@ -231,7 +239,7 @@
             font-weight: 400;
             letter-spacing: 0.16em;
             text-transform: uppercase;
-            color: rgba(255, 230, 200, 0.4);
+            color: rgba(255, 230, 200, 0.58);
             text-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
             animation: fadeUp 0.8s ease forwards;
             opacity: 0;
