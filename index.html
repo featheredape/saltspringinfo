@@ -59,15 +59,28 @@
                 );
             }
 
-            /* ── Particle background ── */
-            .bg {
+            /* ── Background image ── */
+            .bg-img {
                 position: absolute;
                 inset: 0;
                 z-index: 0;
+                background: url('img/ea-circuit-currents.webp'), url('img/ea-circuit-currents.jpg');
+                background-size: cover;
+                background-position: center;
             }
-            .bg canvas {
-                width: 100%;
-                height: 100%;
+
+            /* Dark overlay for text readability */
+            .bg-overlay {
+                position: absolute;
+                inset: 0;
+                z-index: 1;
+                background:
+                    linear-gradient(
+                        170deg,
+                        rgba(25, 45, 40, 0.92) 0%,
+                        rgba(32, 58, 48, 0.88) 40%,
+                        rgba(32, 62, 72, 0.90) 100%
+                    );
             }
 
             /* ── Brand mark ── */
@@ -157,8 +170,8 @@
             /* ── Subtitle ── */
             .sub {
                 font-size: clamp(0.92rem, 2vw, 1.05rem);
-                color: rgba(232, 220, 200, 0.6);
-                font-weight: 300;
+                color: rgba(232, 220, 200, 0.75);
+                font-weight: 400;
                 max-width: 460px;
                 margin: 0 auto 2.8rem;
                 line-height: 1.7;
@@ -242,7 +255,7 @@
             .card-desc {
                 font-size: 0.73rem;
                 font-weight: 300;
-                color: rgba(232, 220, 200, 0.5);
+                color: rgba(232, 220, 200, 0.65);
                 line-height: 1.55;
                 display: block;
                 flex-grow: 1;
@@ -268,7 +281,7 @@
                 font-size: 0.72rem;
                 letter-spacing: 0.12em;
                 text-transform: uppercase;
-                color: rgba(232, 220, 200, 0.3);
+                color: rgba(232, 220, 200, 0.45);
             }
 
             /* ── Responsive ── */
@@ -292,14 +305,14 @@
     </head>
     <body>
         <div class="page">
-            <div class="bg"><canvas id="c"></canvas></div>
+            <div class="bg-img"></div>
+            <div class="bg-overlay"></div>
             <div class="brand">saltspring.info</div>
             <div class="content">
                 <div class="badge">Community-focused &middot; AI-powered</div>
                 <h1>Intelligent tools<br />for <em>Salt Spring Island</em></h1>
                 <p class="sub">
-                    Open-source AI projects solving real problems that face our
-                    community, make life here more accessible and affordable.
+                    Free and Open-source tools for the Salt Spring Island community.
                 </p>
                 <nav class="cards">
                     <a href="https://bylaws.saltspring.info" class="card">
@@ -359,97 +372,5 @@
             </div>
         </div>
 
-        <script>
-            const canvas = document.getElementById("c");
-            const ctx = canvas.getContext("2d");
-            let w,
-                h,
-                particles = [];
-
-            function resize() {
-                w = canvas.width = canvas.offsetWidth;
-                h = canvas.height = canvas.offsetHeight;
-            }
-
-            class Particle {
-                constructor() {
-                    this.reset();
-                }
-                reset() {
-                    this.x = Math.random() * w;
-                    this.y = Math.random() * h;
-                    this.size = Math.random() * 2.2 + 0.5;
-                    this.speedX = (Math.random() - 0.5) * 0.12;
-                    this.speedY = (Math.random() - 0.5) * 0.12;
-                    this.opacity = Math.random() * 0.2 + 0.03;
-                    this.life = Math.random() * 500 + 300;
-                    this.maxLife = this.life;
-                }
-                update() {
-                    this.x +=
-                        this.speedX +
-                        Math.sin(this.y * 0.003 + Date.now() * 0.00015) * 0.08;
-                    this.y +=
-                        this.speedY +
-                        Math.cos(this.x * 0.003 + Date.now() * 0.00012) * 0.06;
-                    this.life--;
-                    if (
-                        this.life <= 0 ||
-                        this.x < -20 ||
-                        this.x > w + 20 ||
-                        this.y < -20 ||
-                        this.y > h + 20
-                    )
-                        this.reset();
-                }
-                draw() {
-                    const fade = Math.min(
-                        1,
-                        this.life / 60,
-                        (this.maxLife - this.life) / 60,
-                    );
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(143, 174, 139, ${this.opacity * fade})`;
-                    ctx.fill();
-                }
-            }
-
-            function init() {
-                particles = [];
-                const count = Math.min(45, Math.floor((w * h) / 20000));
-                for (let i = 0; i < count; i++) particles.push(new Particle());
-            }
-
-            function draw() {
-                ctx.clearRect(0, 0, w, h);
-                for (let i = 0; i < particles.length; i++) {
-                    particles[i].update();
-                    particles[i].draw();
-                    for (let j = i + 1; j < particles.length; j++) {
-                        const dx = particles[i].x - particles[j].x;
-                        const dy = particles[i].y - particles[j].y;
-                        const dist = Math.sqrt(dx * dx + dy * dy);
-                        if (dist < 110) {
-                            ctx.beginPath();
-                            ctx.moveTo(particles[i].x, particles[i].y);
-                            ctx.lineTo(particles[j].x, particles[j].y);
-                            ctx.strokeStyle = `rgba(143, 174, 139, ${(1 - dist / 110) * 0.06})`;
-                            ctx.lineWidth = 0.5;
-                            ctx.stroke();
-                        }
-                    }
-                }
-                requestAnimationFrame(draw);
-            }
-
-            window.addEventListener("resize", () => {
-                resize();
-                init();
-            });
-            resize();
-            init();
-            draw();
-        </script>
     </body>
 </html>
